@@ -1,4 +1,4 @@
-# 锻造事业部BOM和节拍核算 V47｜Netlify Blobs 云端工艺数据库版
+# 锻造事业部BOM和节拍核算 V48｜Netlify Blobs 云端工艺数据库版
 
 ## 部署方式
 
@@ -21,7 +21,14 @@
 首次部署后云端库为空，页面会使用内置默认库。管理员需要进入工艺数据维护窗口，点击“保存到云端主库”初始化主数据库。
 
 
-## V47 修复
+## V48 修复
 
 - 修复保存云端主库失败时前端重复读取 Response body 导致的 `body stream already read` 报错。
 - 保存失败时会显示真实原因，例如管理员密码错误、未配置 ADMIN_PASSWORD、Netlify Function 错误等。
+
+
+## V48 更新
+- 过滤机加工图片网格识别中把表头误识别为 OP10/OP20 的问题。
+- 修正 Scycle/time(s) 字母被误转成数字 1 的问题。
+- 增加 Mazak530 常见 OCR 误读归一化，如 Mazakb30 / Mazako30 / MazakS30。
+- 追加工序前二次过滤无效机加工行。
