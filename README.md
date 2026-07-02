@@ -1,4 +1,4 @@
-# 锻造事业部BOM和节拍核算 V45｜Netlify Blobs 云端工艺数据库版
+# 锻造事业部BOM和节拍核算｜Netlify Blobs 云端工艺数据库版
 
 ## 部署方式
 
