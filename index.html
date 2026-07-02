@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>锻造事业部BOM和节拍核算 V46｜云端工艺数据库版</title><style>
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>锻造事业部BOM和节拍核算 V47｜云端工艺数据库版</title><style>
 :root{--teal:#2f8999;--teal2:#176b7a;--green:#00a651;--grid:#333;--soft:#f5f7fa;--yellow:#fff200;--text:#1f2937;--muted:#6b7280;--red:#dc2626;--orange:#f97316;--blue:#2563eb}
 *{box-sizing:border-box} body{margin:0;font-family:"Microsoft YaHei",Arial,sans-serif;color:var(--text);background:#eef2f5;font-size:13px}.app{max-width:1480px;margin:0 auto;padding:12px 14px 40px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:12px}.brand{display:flex;align-items:center;gap:14px}.logo{width:170px;height:60px;display:flex;align-items:center;justify-content:flex-start;overflow:hidden;background:transparent;border-radius:0;flex:0 0 auto}.logo img{display:block;max-width:100%;max-height:100%;object-fit:contain}.title{font-size:21px;font-weight:800;letter-spacing:.2px}.sub,.hint{font-size:12px;color:var(--muted);line-height:1.45}.layer{background:#fff;border:1px solid #d8dee6;border-radius:14px;margin-bottom:12px;box-shadow:0 1px 2px rgba(16,24,40,.04);overflow:hidden}.layer-hd{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px;background:#fff;border-bottom:1px solid #e5e7eb}.layer-hd h2{font-size:16px;margin:0;color:#0f5967}.content{padding:10px 12px}.form-grid{display:grid;grid-template-columns:repeat(6,minmax(120px,1fr));gap:8px}.form-grid.small{grid-template-columns:repeat(7,minmax(105px,1fr))}.bar-grid{display:grid;grid-template-columns:repeat(6,minmax(128px,1fr));gap:10px 12px;align-items:start}.bar-grid .field{min-width:0}.bar-grid .field label{height:34px;display:flex;align-items:flex-end;line-height:1.25;margin:0}.bar-grid .field input,.bar-grid .field select{width:100%;height:34px}.bar-grid .field input[readonly]{font-weight:800}.field{display:flex;flex-direction:column;gap:3px}.field label{font-size:12px;color:#4b5563}.field input,.field select{height:30px;border:1px solid #cfd8e3;border-radius:7px;padding:4px 7px;font-size:12px;background:#fff}.field input[readonly]{background:#f3f4f6;color:#475569}
 #dieTolLower{color:#111!important;background:#fff!important}.field .calc{font-weight:800;color:#0f5967}.two-col{display:grid;grid-template-columns:1.4fr .9fr;gap:10px}.mini-card{border:1px solid #e5e7eb;border-radius:12px;padding:10px;background:#fcfcfd}.mini-card h3{font-size:14px;margin:0 0 8px;color:#0f5967}.errText{font-size:12px;color:var(--red);font-weight:700;line-height:1.4}.missing{border-color:var(--red)!important;background:#fff1f2!important;color:var(--red)!important}.invalidBox{background:#fff1f2;border:1px solid #fecaca;color:#b91c1c;border-radius:8px;padding:8px;margin-top:8px;font-size:12px;font-weight:700}.btnbar,.toolbar,.routeTools{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.btn{border:0;border-radius:8px;background:var(--teal);color:#fff;padding:7px 9px;font-size:12px;cursor:pointer}.btn.secondary{background:#374151}.btn.ghost{background:#e5edf2;color:#174b55}.btn.red{background:#ef4444}.btn.blue{background:var(--blue)}.btn.db{background:var(--teal2);border:2px solid #d4f7ff;box-shadow:0 0 0 2px rgba(47,137,153,.12);font-weight:800}.btn:disabled{opacity:.45;cursor:not-allowed}.table-wrap{overflow:auto;max-width:100%;padding:0}.excel{border-collapse:collapse;width:100%;min-width:980px;background:#fff;table-layout:fixed}.excel th,.excel td{border:1px solid var(--grid);padding:4px 5px;font-size:11px;text-align:center;vertical-align:middle;white-space:normal;word-break:break-word}.excel th{background:var(--teal);color:#fff;font-weight:700}.excel .subhead th{background:#ecf0f3;color:#111}.excel .green{background:var(--green);color:#061b0d}.excel .yellow{background:var(--yellow);font-weight:700}.excel .gray{background:#f1f1f1;color:#6b7280}.excel input,.excel select{width:100%;border:1px solid #cfd8e3;border-radius:5px;background:#fff;text-align:center;font-size:11px;height:24px}.excel input.manual{background:#fff7ed;border-color:#fb923c}.autoFill{background:#e5e7eb!important;color:#111!important}.manualFill{background:#fff!important;color:#111!important}.autoParam{background:#e5e7eb!important;color:#111!important;border-color:#cbd5e1!important}.invalidFill{background:#fee2e2!important;color:#111!important;border-color:#ef4444!important}.invalidCell{background:#fee2e2!important;color:#111!important}.autoCell{background:#e5e7eb!important;color:#111!important}.manualCell{background:#fff!important;color:#111!important}.caption{padding:7px 10px;color:#6b7280;font-size:12px;border-top:1px solid #e5e7eb;line-height:1.45}.flow{display:flex;gap:6px;flex-wrap:wrap;padding:8px 0}.step{border:1px solid #94a3b8;border-radius:999px;padding:6px 9px;background:#f8fafc;font-size:12px}.arrow{align-self:center;color:#64748b}.badge{font-size:11px;border-radius:999px;padding:3px 8px;background:#e0f2fe;color:#075985}.kpis{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:8px}.kpi{background:#fff;border:1px solid #d8dee6;border-radius:12px;padding:10px}.kpi .v{font-size:18px;font-weight:800;color:#0f5967}.kpi .l{font-size:12px;color:#6b7280;margin-top:3px}.componentRow{display:grid;grid-template-columns:.75fr 1.25fr .75fr .9fr;gap:6px;margin:6px 0}.componentRow input,.componentRow select{height:30px;border:1px solid #cfd8e3;border-radius:7px;padding:4px 8px;font-size:12px}.dbTable td.locked{background:#f8fafc;color:#475569}.dbTable td.editing{background:#fffdf2}.checkBoxPanel{display:flex;gap:5px;flex-wrap:wrap;max-width:760px}.checkPill{border:1px solid #d1d5db;background:#f8fafc;border-radius:999px;padding:4px 7px;font-size:11px;cursor:pointer}.headCheck{display:flex;align-items:center;justify-content:center;gap:4px}.headCheck input{width:14px;height:14px;min-width:14px;accent-color:#fff}.routeActions{display:flex;gap:3px;align-items:center;justify-content:center;flex-wrap:wrap}.routeActions button{padding:2px 5px;border-radius:5px;border:1px solid #cbd5e1;background:#f8fafc;cursor:pointer}.paramBlock{margin-top:10px;border:1px solid #e5e7eb;border-radius:12px;padding:10px;background:#fbfdff}.paramBlock h3{font-size:14px;margin:0 0 8px;color:#0f5967}.readonlyBadge{display:inline-block;background:#e6f7ee;color:#166534;border:1px solid #bbf7d0;border-radius:999px;padding:2px 7px;font-size:11px;font-weight:700}.paramDetails{margin-top:8px;border:1px dashed #b6cad6;border-radius:10px;background:#f8fbff;padding:8px}.paramDetails summary{cursor:pointer;font-weight:800;color:#0f5967;margin-bottom:8px}.paramBlock{margin-top:0!important}.print-note{display:none}@media(max-width:1050px){.form-grid,.form-grid.small,.bar-grid{grid-template-columns:repeat(3,1fr)}.two-col{grid-template-columns:1fr}.excel{min-width:940px}}@media print{.toolbar,.btnbar,.routeTools,.no-print{display:none}.app{max-width:none;padding:0}.layer{box-shadow:none;border:0;page-break-inside:avoid}.print-note{display:block}.excel th,.excel td{font-size:9px;padding:3px}.table-wrap{overflow:visible}.kpis{display:none}}
@@ -8,7 +8,7 @@
 <body>
 <div class="app">
   <div class="topbar">
-    <div class="brand"><div class="logo"><img src="data:image/png;base64,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" alt="旭升集团 锻造事业部"></div><div><div class="title">锻造事业部BOM和节拍核算 V46｜云端工艺数据库版</div><div class="sub">上下结构：基础信息 → PDF/图片识别导入 → 棒料/重量与BOM → 工艺路线与产能分析；打开默认为空白填写说明；工艺数据库从云端主库读取，分析结果不入库；BOM料号可人工编辑。</div></div></div>
+    <div class="brand"><div class="logo"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJIAAAA4CAYAAAAW/KEGAAAQtUlEQVR4nO2daVRUV7bH/+fWBBRVRTFDwqRgBCMqDtE8A+aJGTSD6dVoJ3TSnTaiHYmr7ZjkxcT3Ynq1MatNTEy/RGKb5wpGpu5GwAESo91RO0ETQVTEqUDwYYAqoICaq+5+HwqIyiAFxaDv/ta6H6iqe+6+5/7vOXufs8+BEREEBIYKN9oGCNwZCEIScAuCkATcgiAkAbcgCEnALYhH46IObTPxtddAABytbbCVV8LR2ATu7lDIpsSCk3sBDJBOm8RGwz4B12EjFf47fmwi67dlsOw7DNOZKijqGsExp06o82CdBwDYiWCKi4I0KhxeP18I8Yx7IfL1EYQ1Rhl2IdnrrpHx87/DuGsPlO0mtPB2wE8Nz4cfgHTyPWCMA8QcwBiI5wG7AyDAUloOy6FvITYYIQcHY1gQZEsWQf7sYoj8fQVBjTGGTUgOfTsZMnbD8JdcKIxmdISHwnNxMjwfSYI0fuKAhWD+x3dk/eY4DDl7odSbYAhUw+vFVHi/sFQQ0xhiWIRkPvYDdfxhK7zPaNAeEQyvlc9A/uxTQ3rwfHMrGXYVwPRpFrxbOmB9cBbk//kSJBOiBEGNAdwuJGPOXjK8ugmcgyBNWwqvVc9B5Oc+38Z+5Sq1vZMBj72H0eHrDdVHGyBLuk8Q02hDRG479J9mUfNd91PDlEfJsOcrcmfZNx/tn+VSw7gkaoxMpPbcfcN6LeG49eG+B7srn/R3/Rtpk54m6/nLI/JgTd+WUWPcI9QUMZcMhQdH5JrC0fvhlq7NWPQ1mdM3gKLugurz9yAODx2xrsZaVkntz70M2AmK3A8hnXyP0M2NAkMWku1iNekWLYPI5oAy9yPIZsaP+IM0HjxKxt/8Bxx3ByOgcDs4f7UgphFmyFMk+nWboTDa4Ll+1aiICAC8kucy0bOL4VvbgLY/ZYyGCf/vGdIUifW8hpjVBlv6M/D5zZJRbQXUf1zL9FYbWTV1sNfW00h2rwIjOEUicGcjzP4LuAVBSHcozc3N1NzcPGLdTZ8+0skffqC9RUUgAF5yOebPn4+EhIR+/Y6SkhIqO3kSFqsVMokEz6SmIjwiggHAzs8+o2qNBuPGj8evnn9+wP7Lv44do+LiYnCM4Xdr1sBH7YzITp06RacrKqDTamG2Wgf0RvA8DwcRYqKjkbLE6dPt27uXzlRUQKFU4sX09CH5VdXV1ZSTnQ3w/OAKYAzxU6di4cKFDABKS0vpi127EBUVhad+9jNERkYOyL7Dhw5RZmYmiAgrVqyg2XPm9Hre0SNHqK6uDu3t7WjT62G12Zy2MwZH5z3wPA/wPIgxREdH45fPPttrWX0KKWH6dHauqopKDhwAEaHyzBmkrVhBc+6/v9eC/pqXR3vy88EYA2MML6SldYsIADSXL+NKbS3aOjrwq4HURic1NTWoqa6G3W533iiAo0eP0vaMDIAIjOPgip/HcRwsZjNSlizpLv9cVRV4nseL6ekuWNYTfWsrqs6dc8me6xGJRJDIZFi4cCEA4Og336C1pQUnm5uhuXQJzy9bRgnTp99STA6HAw67HUQEh8PR4/uS4mIqKipCS3MzJGIx0JXO04/dIpEIMg+PPr/vN2pLTU1lYpGIigoLYbPZkLFtG8AYzblJ4Xm5uVSQnw8wBolUiuXLl+NmwXFiMYgIYrFrgaJIJAIRQSQSQcQ5250D+/eDeB5iiQSTJ092qUzGcRg3btwN5fM877JdveHn54fpM2YAgxQSx3GImTCh+2+TyQSe58HzPFpaW7H1gw+QsnQpLXrssX7FxBj7acSZ3fjTXZmZVHLgAMAYOI6DX0AAwsPCwHH9t+kcxyE2Lq7P729Ze0t/8QvGiKiwqAh2ux0Zn3wCkUhEs2bNYgCQk5VFRUVFAGOQSqVIS0tDX03pUOFEItTX19O1+nowjsOjCxd2d1FjgbDwcPbS6tVuK4+/SZA2ux3ZWVn43/p6SktLc/m+jx8/TsUHDoAxhpDgYCx9+mlMnzHDLfU3IGd7ydNPsycXLwbg7DO71JuVlUVFe/cCAMRiMVb89rfDJiLA+aZZrVbYO5trHx+f4brUmEB8XSsRGBgIwFn/R/75T7z91lvU1NTkUtO3f/9+cBwHpUqFNWvXuk1EgAsDkilLljAiovDwcMyYMYNlZ2XR/qIiAIBEIsGq9HTMmDlz2FsHjuMAIvBEuHbtGi5fvky9+QH9oVQoEBwS0sPWmpoa8vb2ds0gIvgHBHSXpdVqhxQp+fv7d5fl6eXV7XO+vHYtLl26hJ07d8JmseDixYvYuHEjli9fTnFxcQOq96t1dQCAhIQEhPRy/33R2tJCdofjBttuxiXHYMlSZ1ZiTnY27euM6Dw8PLDqpZcwbdq0YRHRzX181988z6OkuBglxcUulcdxHCZPmYJXX321+zMigtlsxpvr1g3Kxk3vvkt3h4Wxs2fO0KZ33hm0s81xHJKTk+m5X/+6R106eB5J8+Yxta8v7di+HTqdDk0NDfhwyxY8k5pKSfPm9Vv/Op2OGJz3Gj9likt2bdq0CQ0//oj4qVNpzZo1vV7H5XGkvNxcKiosBAGQyWR4afVql0R0c79/K4wm00/OI89DLpdD5eMDjuNcOth1kQlvt/d6rcGkTwDOhQtd9zaUVIyulrY/4uPj2Rvr12NibCw4jkNHRwc+zchAbnZ2vycSkTOUHwRdDn9f9Qa42CLl5eRQwZ49TsdaJsOq9HRMmTqVFeTnU0hoKGbd13emoqKzy7CYTK5cEm16PRhj8FGrofZ1Jv1vePttcrVSrFYrtn38MWpqanp9WDKZDK+9/jp8fX1dalEYgMCgIAYAkydPZu9t2TKkri2os6z+CAwMZG+uX4//2bGDvv76awBAUVERGhsbKX31aiaRSHqc4+/vzxjHEWMMlWfPYubMmQM3qqtX6CeyG7CQ8nJyaE9BAVhndLZi5UokTJ/O9u/bR3l5eZBIJCCA7utDTA8kJuLUqVNoa2tDUWEhPf7EE7esMI1GQ5VnzoCIMHHixO7PfX0Ht4rk7rAwqq2t7SGkLj9k4sSBL0roi4EIwV08v2wZC4uIoC8yM2Gz2VBaWoqGN9+k0JAQ8Dzfwy0IDQ1FTXU1yk6exJOLF5OPj/tSoAfUteVmZVFBQQEYnNFZ2sqV6BKMzWoFY8w5zvTJJyj97rte38iYCROgVqtBRPj73/6GwoIC0ul0fb69x0tL6YP334fBaITD4UBiUtKgbvB6dE1NziVPdxDJycns9y+/DH9/fwBAtUaDY8eO9dqNLViwAEQEnU6H9zZvxsWLFwfWeg6gzm7ZIuVmZVFhZ3TWHeLPnt2t5CefeopZbTYqyM+H1WpFxrZt4Hm+xwi4Wq1mzy9bRh9u2QK73Y6/5uXhy+JijI+OpusHAwnAtWvXUFdb6/SNADz2xBOIj/8p1yk/P5/0en33AOWtIAA6nQ6V586BMdZd6e7m6tWrdOjQIQz2NXc4HIiOicHcuXNdKmJyfDx7/Y03aMeOHTh39myvo9kA8EBiIquqrKQjR4+iproab2/YgImxsaT09oZEKoWXXN7D9tbWVjQ1Nd3Sv+pXSLu/+KJ7AEssFiNtxQrcPKoNOIcGGGO0Jz8fNpsN2z7+GDa7nRITE2/47dSpU9mrr71GOTk50Fy+jPaODpw6deoGn6TbKQYQ4O+PRY89huQFC7rLqamuprycHGdX6qIvwzEGiUyGB+fN6/68qwtwdQihN3RaLb7+6qshTZG0trVh7ty5N9g2EFUFBQWxdevW4S/bt9M/Dh8GEXUHGtezfOVK5uPnR18WF8NiseDi+fM3BA690T122I+Y+hTS9ydO0LnKSkRERkKpUGD+ggX9Ttr+PCWFKRQK+uHkSZhMJhz55huEhYVRVNSN685i4+LYWxs2oKKigirPnkVrayu0Wi0sFgukYjGUKhUCAgMREhqKBx98sMf1vBUK3BMbi4729gG/+QRAqVIhMiICc+6/H9HR0d2n+vr5ISAoCH5q9QBL6xuxRAKlSoXBetvE8/C9zg6xRAKRWHxD1HkrXli+nIWFhdG+ffsglUoRFh7e4zcpKSksMTGRvvv2W+i0WvzY0ACtVts9l9kbDICnXN7390Ji29imKxVksAHGSCEIScAtjMq2NgIDQ6PRUH19PVRKJTw8PREQEABdpxsgEolwT+dwRX19PVksFojFYiiVSgCASqVihw8fpklxcQgMCmK1tbV0vqoKwSEhkIjF0Op0MJlMCAsLAwOg8vFBcHAwO11RQeEREVCpVDe0gFqtlpoaGxHbx3TMkDIkrRc0pHsyjVo3fTImmjX9K+9QY8oqstfWjwl7hkprays+37kTdbW1+PPWrSgpLsZ7mzejvb0dhQUFyM3JIQCwWizYvXs3Ptq6FSqVinWJIHv3btR2zq9lZmYiJzsbmsuXUVNTg/NVVfh8506Ul5WhvLwcV69exenTp2nL+++jTa+HVqulhoYGOnzoEH1ZUkINDQ34aOvWPm0dUosknTCOkVRCkj/vRnugHylGcSVJyxubyTtrPyh10Ygu0BxOEhISmEKppPtmz8aJEyfA8zw8vbxw3+zZrKqqisxmMwDAR62GXC5Ha0sLmhobieM4GAwGMMbQ1toKAIgID0ddTQ3GjR8PhUIBiUQCiUQCPz8/AIBKpYLZZIJYIoGD51FYWAiO48A7HDAYDAi96y5nElwfDDlnW7VxLdq9JDD/4b9hOVExKi2B8eBRcmTuQXN4EJSvrBgNE4YVq9UK4nlwjMFiNuPgwYNUV1cHsViMluZmOl5aiuamJpiMRpSXl6OsrAynKypgs9mg0WjQ0txMgYGBkMpkaGhowNW6Oly5cgVyuRwyDw94eHg4E/s6I8PIyEjmLZcjLi4OAYGB8FGp4O3t3W80OmQhSWKimPK9NyDiCR2vvIOR7lasZZVkWvNHMLk31Bkb77hVtlazuXssyMHzkEmlSE5OZuPHjYPZZILa15c99PDDTObhgSnx8Vjw0EMsecECtujxx5mnhwemz5gBta8vU6pUePTRRwEiXLpwAUePHEFSUhIsZjMMBgOMBoPzgkTQ6/VkNBoRHh7uzP/qTNvtD7esIvF6fD6Tbvw9JJfqoH9uLewXq0dETObvykn/y5dB7R3weHctpJMn3FEiqqioIKVajaDgYGaxWiGTyRAcEoL6+nriOA4Bnclu58+fpwsXLmBuYuIN59vsdtg6x4YinQ40xGIxIqKiYHc4EBsXB7FYDIVCgZDQUGeut8OBH69dg7rT+QYR7o2PB+9wwGa19mmr25YjeacuZuy/0sFduoLmlFUwFhwcVjG1f5ZHbam/AxkM8PzT65A/kXxHiQgArtTUIHn+fABA1LhxMBuNmDJlCr4/fhxeXl4Y35l7fqGqCrPnzOkRUcXExEDRGcXVXb2K77//HoFBQYiZMAFxkyZh0r33MpFIhPLyclRrNPDx8UFUZCRq6+oQHBKC46Wl5OfnB44xVFZWIn7atD5tve032lJu3QCPecJGW6PNbbT1n54Mu/Jh+jQH3i3tsP77LMjXC1v/jRVuo81I90Op74Ah0FfYjHQMMirbIzN/H3g+Mg+SSTFgHAeIODDGgYgH2ezO7ZFPnILl4L+E7ZFvE8bshu0OIhiFDdtvG0Zl0vbmfyFhLTsLvlELUVgopFPjwHl5ggGQJAj/QuJ2QZj9F3ALwrY2Am5BEJKAWxCEJOAWBCEJuAVBSAJu4f8A2D4hzd7clhcAAAAASUVORK5CYII=" alt="旭升集团 锻造事业部"></div><div><div class="title">锻造事业部BOM和节拍核算 V47｜云端工艺数据库版</div><div class="sub">上下结构：基础信息 → PDF/图片识别导入 → 棒料/重量与BOM → 工艺路线与产能分析；打开默认为空白填写说明；工艺数据库从云端主库读取，分析结果不入库；BOM料号可人工编辑。</div></div></div>
     <div class="btnbar no-print"><button class="btn" onclick="clearAnalysisResults()">清空/刷新</button><button class="btn ghost" onclick="loadCloudProcessDatabase(true)">同步云端工艺库</button><button class="btn db" onclick="switchTab('db')">进入工艺数据维护窗口</button><button class="btn secondary" onclick="safePrint()">打印 / 保存 PDF</button><button class="btn ghost" onclick="exportJson()">导出工艺数据库 JSON</button><span id="cloudDbStatus" class="hint">云端工艺库：待同步</span></div>
   </div>
   <div id="mainView">
@@ -1443,7 +1443,7 @@ function renderMachiningDebug(rows){
     return `<tr><td>${raw.part??r.partNo??''}</td><td>${raw.procedure??r.procedure??''}</td><td>${raw.equipment??r.equipment??''}</td><td>${raw.program??''}</td><td>${raw.clamp??''}</td><td>${raw.scycle??r.scycleRaw??''}</td><td>${raw.cavity??r.cavity??''}</td></tr>`;
   }).join('');
   const trs=data.map(r=>`<tr><td>${r.procedure||''}</td><td>${r.equipment||''}</td><td>${r.program??''}</td><td>${r.clamp??''}</td><td>${r.scycleRaw??''}</td><td>${r.scycle??''}</td><td>${r.cavity??''}</td><td><b>${r.cycle??''}</b></td><td>${r.debugNote||'OCR还原单元格后由JS计算'}</td></tr>`).join('');
-  box.innerHTML=`<div style="margin:6px 0;color:#0f5967;font-weight:700">V39逻辑：OCR按单元格边界强识别原始字符，不做Program+Clamp纠偏、不做业务猜测；JS只按 Scycle time / Cavity 计算。若单元格OCR仍只读出10，调试区会直接显示10，并标记为OCR原文问题。</div>
+  box.innerHTML=`<div style="margin:6px 0;color:#0f5967;font-weight:700">V47逻辑：优先按OCR文字行识别；若整表OCR找不到OP行，则按表格线定位单元格进行网格兜底识别；JS只按 Scycle time / Cavity 计算。</div>
   <div style="margin:6px 0;font-weight:700">① OCR还原表格原始字符</div>
   <table class="excel" style="min-width:900px"><tr><th>Part Number</th><th>Procedure</th><th>Machining Equipments</th><th>Program processing time</th><th>Clamp time</th><th>Scycle time</th><th>Cavity</th></tr>${rawRows}</table>
   <div style="margin:10px 0 6px;font-weight:700">② JS数字转换与运算过程</div>
@@ -1611,6 +1611,145 @@ async function refineMachiningRowsWithCellOcr(rows, canvas, statusFn){
   }
   return rows;
 }
+
+function detectGridLinesFromCanvas(canvas, axis='x'){
+  const ctx=canvas.getContext('2d',{willReadFrequently:true});
+  const w=canvas.width, h=canvas.height;
+  const im=ctx.getImageData(0,0,w,h).data;
+  const scores=[];
+  if(axis==='y'){
+    for(let y=0;y<h;y++){
+      let cnt=0;
+      const off=y*w*4;
+      for(let x=0;x<w;x++){
+        const i=off+x*4;
+        const g=0.299*im[i]+0.587*im[i+1]+0.114*im[i+2];
+        if(g<165) cnt++;
+      }
+      scores[y]=cnt;
+    }
+    return groupLinePeaks(scores, Math.max(80,w*0.24));
+  }
+  for(let x=0;x<w;x++){
+    let cnt=0;
+    for(let y=0;y<h;y++){
+      const i=(y*w+x)*4;
+      const g=0.299*im[i]+0.587*im[i+1]+0.114*im[i+2];
+      if(g<165) cnt++;
+    }
+    scores[x]=cnt;
+  }
+  return groupLinePeaks(scores, Math.max(80,h*0.22));
+}
+function groupLinePeaks(scores, minScore){
+  const lines=[];
+  let start=-1, best=-1, bestVal=-1;
+  for(let i=0;i<scores.length;i++){
+    if(scores[i]>=minScore){
+      if(start<0){start=i; best=i; bestVal=scores[i];}
+      if(scores[i]>bestVal){best=i; bestVal=scores[i];}
+    }else if(start>=0){
+      lines.push(best);
+      start=best=bestVal=-1;
+    }
+  }
+  if(start>=0) lines.push(best);
+  // 合并非常接近的相邻线，避免表格线2px宽导致重复。
+  const merged=[];
+  lines.forEach(v=>{
+    if(!merged.length || v-merged[merged.length-1]>8) merged.push(v);
+    else merged[merged.length-1]=Math.round((merged[merged.length-1]+v)/2);
+  });
+  return merged;
+}
+function cropCanvasCellByRect(canvas,left,right,top,bottom,expand=0){
+  let l=Math.min(left,right)+4-expand;
+  let r=Math.max(left,right)-4+expand;
+  let t=Math.min(top,bottom)+4-expand;
+  let b=Math.max(top,bottom)-4+expand;
+  return cropCanvasRect(canvas,l,t,Math.max(8,r-l),Math.max(8,b-t));
+}
+async function ocrAnyCellRaw(canvas, lang='eng', whitelist=''){
+  const cfg={preserve_interword_spaces:'1',tessedit_pageseg_mode:'7'};
+  if(whitelist) cfg.tessedit_char_whitelist=whitelist;
+  const result=await Tesseract.recognize(canvas,lang,cfg);
+  return ((result&&result.data&&result.data.text)||'').replace(/[\r\n]+/g,' ').replace(/\s+/g,' ').trim();
+}
+function normalizeOcrProcedure(raw, rowIdx){
+  let t=String(raw||'').toUpperCase().replace(/\s+/g,'');
+  t=t.replace(/^0P/,'OP').replace(/^QP/,'OP').replace(/^O0P/,'OP').replace(/[|Il]P/,'OP');
+  let m=t.match(/OP\s*([0-9]{1,3})/i) || t.match(/[O0]P\s*([0-9]{1,3})/i);
+  if(m) return '机加OP'+m[1];
+  // 固定Production capacity study表中，行顺序通常为OP10/OP20/OP30；仅在网格行和数值列已经识别成功时兜底。
+  return '机加OP'+String((rowIdx+1)*10);
+}
+function normalizeGridMachine(raw){
+  let t=sanitizeMachineText(String(raw||'').replace(/\s+/g,' ').trim());
+  t=t.replace(/Mazak\s*([0-9]+)/i,'Mazak$1').replace(/MAZAK\s*([0-9]+)/i,'MAZAK$1');
+  return t || '机加工设备未识别';
+}
+async function extractMachiningRowsByGridFallback(canvas,statusFn){
+  statusFn && statusFn('整表OCR未找到OP行，正在按表格网格强制识别机加工行……');
+  const w=canvas.width, h=canvas.height;
+  let xs=detectGridLinesFromCanvas(canvas,'x');
+  let ys=detectGridLinesFromCanvas(canvas,'y');
+  // 加入边界，适配截图左边框/右边框正好贴边导致无法检测的情况。
+  if(!xs.length || xs[0]>w*0.025) xs=[0,...xs];
+  if(xs[xs.length-1]<w*0.96) xs.push(w-1);
+  if(!ys.length || ys[0]>h*0.03) ys=[0,...ys];
+  xs=[...new Set(xs.map(x=>Math.max(0,Math.min(w-1,Math.round(x)))))] .sort((a,b)=>a-b);
+  ys=[...new Set(ys.map(y=>Math.max(0,Math.min(h-1,Math.round(y)))))] .sort((a,b)=>a-b);
+  // 该Production capacity study固定列：Part Number, Process, MAC, Program, Clamp, Scycle, Tool No., Cavity, OEE...
+  // 需要至少到OEE左侧，前9个边界即可识别核心字段。
+  if(xs.length<9 || ys.length<3){
+    return [];
+  }
+  const headerStart=ys.findIndex((y,i)=>i<ys.length-1 && ys[i+1]-y>35);
+  const dataStartIdx=headerStart>=0?headerStart+1:1;
+  const rows=[];
+  for(let ri=dataStartIdx; ri<ys.length-1; ri++){
+    const top=ys[ri], bottom=ys[ri+1];
+    if(bottom-top<28) continue;
+    const cy=(top+bottom)/2;
+    // 跳过表头区域：如果该行还在上半部且高度较小，一般是中英文表头。
+    if(ri===headerStart && cy<h*0.35) continue;
+    statusFn && statusFn(`正在按网格识别机加工第 ${rows.length+1} 行……`);
+    const partRaw=await ocrAnyCellRaw(cropCanvasCellByRect(canvas,xs[0],xs[1],top,bottom,2),'chi_sim+eng','');
+    const procRaw=await ocrAnyCellRaw(cropCanvasCellByRect(canvas,xs[1],xs[2],top,bottom,2),'eng','OPop0123456789');
+    const machineRaw=await ocrAnyCellRaw(cropCanvasCellByRect(canvas,xs[2],xs[3],top,bottom,2),'eng','ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 -_');
+    const pgRaw=await ocrAnyCellRaw(cropCanvasCellByRect(canvas,xs[3],xs[4],top,bottom,2),'eng','0123456789.,OoIl');
+    const clRaw=await ocrAnyCellRaw(cropCanvasCellByRect(canvas,xs[4],xs[5],top,bottom,2),'eng','0123456789.,OoIl');
+    const scRaw=await ocrAnyCellRaw(cropCanvasCellByRect(canvas,xs[5],xs[6],top,bottom,2),'eng','0123456789.,OoIl');
+    const caRaw=await ocrAnyCellRaw(cropCanvasCellByRect(canvas,xs[7],xs[8],top,bottom,2),'eng','0123456789.,OoIl');
+    const pg=rawCellNumber(pgRaw), cl=rawCellNumber(clRaw), sc=rawCellNumber(scRaw), ca=rawCellNumber(caRaw);
+    // 必须至少识别到Scycle或Program，否则可能是表头/空行，不追加。
+    if(!(isFinite(sc)&&sc>0) && !(isFinite(pg)&&pg>0)) continue;
+    const cavity=(isFinite(ca)&&ca>0)?ca:1;
+    const scycle=(isFinite(sc)&&sc>0)?sc:'';
+    const cycle=(isFinite(sc)&&sc>0&&cavity>0)?sc/cavity:'';
+    const row={
+      partNo:(partRaw&&partRaw.length>1?partRaw:(val('partNo')||'机加工件')),
+      procedure:normalizeOcrProcedure(procRaw,rows.length),
+      equipment:normalizeGridMachine(machineRaw),
+      cycle,
+      program:isFinite(pg)?pg:'',
+      clamp:isFinite(cl)?cl:'',
+      scycle,
+      scycleRaw:scRaw,
+      cavity,
+      rawCells:{part:partRaw,procedure:procRaw,equipment:machineRaw,program:pgRaw,clamp:clRaw,scycle:scRaw,cavity:caRaw},
+      debugNote:`V47网格兜底识别：先用表格线定位单元格，再OCR原始字符；JS计算 ${scRaw||'NaN'} / ${caRaw||'1'} = ${cycle||''}`,
+      debugY:Math.round(cy),
+      debugColumns:{xProgram:Math.round((xs[3]+xs[4])/2),xClamp:Math.round((xs[4]+xs[5])/2),xScycle:Math.round((xs[5]+xs[6])/2),xTool:Math.round((xs[6]+xs[7])/2),xCavity:Math.round((xs[7]+xs[8])/2)}
+    };
+    rows.push(row);
+    // 防止把右侧空行/表格外内容识别进去，通常数据行不超过20。
+    if(rows.length>=20) break;
+  }
+  machiningDebugRows=rows;
+  return rows;
+}
+
 async function readMachiningRowsFromImageFile(file,statusFn){
   if(!window.Tesseract) throw new Error('图片OCR组件未加载成功');
   statusFn && statusFn('正在增强图片并按表格列位置识别机加工图片……');
@@ -1623,6 +1762,9 @@ async function readMachiningRowsFromImageFile(file,statusFn){
   const words=(result&&result.data&&result.data.words)||[];
   let rows=extractMachiningRowsFromOcrWords(words);
   rows=await refineMachiningRowsWithCellOcr(rows,canvas,statusFn);
+  if(!rows || !rows.length){
+    rows=await extractMachiningRowsByGridFallback(canvas,statusFn);
+  }
   renderMachiningDebug(rows);
   return {rows,text:(result&&result.data&&result.data.text)||''};
 }
@@ -1850,7 +1992,7 @@ function rowsToTsv(rows){return rows.map(r=>r.map(c=>String(c??'').replace(/\t/g
 function guarded(){if(!validateAll()){alert('存在未填写/无效项目或棒料规格错误，已用红色标记。填写完整后才能复制、下载或导出。'); return false} return true}
 function downloadCsv(tableId, filename){if(!guarded())return; const rows=tableId==='capacityTable'?capacityExportRows(false):bomExportRows(); const blob=new Blob(['\ufeff'+rowsToCsv(rows)],{type:'text/csv;charset=utf-8;'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename; a.click(); URL.revokeObjectURL(a.href)}
 function copyTable(tableId){if(!guarded())return; const rows=tableId==='capacityTable'?capacityExportRows(false):bomExportRows().slice(2); const text=rowsToTsv(rows); if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>alert(tableId==='capacityTable'?'已复制有效工序内容，不含表头。':'已复制BOM内容，不含客户/标题行，可直接粘贴到 Excel。'));} else {const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();alert(tableId==='capacityTable'?'已复制有效工序内容，不含表头。':'已复制BOM内容，不含客户/标题行，可直接粘贴到 Excel。')}}
-function exportJson(){const data={db,castRows,exportedAt:new Date().toISOString(),note:'V45导出当前工艺数据库与铸棒规则，不包含项目分析结果；云端主库以Netlify Blobs为准。'}; const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='锻造报价工艺数据库.json'; a.click(); URL.revokeObjectURL(a.href)}
+function exportJson(){const data={db,castRows,exportedAt:new Date().toISOString(),note:'V47导出当前工艺数据库与铸棒规则，不包含项目分析结果；云端主库以Netlify Blobs为准。'}; const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='锻造报价工艺数据库.json'; a.click(); URL.revokeObjectURL(a.href)}
 function safePrint(){if(!guarded())return; window.print()}
 function switchTab(which){const show=which==='db'; $('mainView').style.display=show?'none':'block'; $('dbCard').style.display=show?'block':'none'; window.scrollTo({top:0,behavior:'smooth'}); renderAll();}
 const cycleParamIds=new Set(['forgeCycleSingle','heatCycleSingle','acidCycleSingle','polishCycle','shotCycleSingle','castLongCycleInput','castShortCycleInput','forgeLineDb','heatDb','shotDb','polishEnabled','shotEnabled']);
