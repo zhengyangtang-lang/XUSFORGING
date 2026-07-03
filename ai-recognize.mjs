@@ -142,43 +142,18 @@ JSON顶层结构必须包含：document_type, raw_text, forging, machining_rows,
 }`;
 }
 
-export async function handler(event) {
-  if (event.httpMethod !== 'POST') return reply(405, { ok: false, error: 'Method not allowed' });
-
+async function callGemini({ kind, filename, partsData }) {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    return reply(500, {
-      ok: false,
-      error: '服务器未配置 GEMINI_API_KEY，无法使用免费AI识别。请在Netlify环境变量中新增 GEMINI_API_KEY 后重新部署。'
-    });
-  }
-
-  let req;
-  try { req = JSON.parse(event.body || '{}'); } catch { return reply(400, { ok: false, error: '请求JSON解析失败。' }); }
-
-  const { kind, filename = 'upload', mimeType = '', dataUrl = '' } = req || {};
-  if (!['forging', 'machining'].includes(kind)) return reply(400, { ok: false, error: 'kind 必须是 forging 或 machining。' });
-  if (!dataUrl || !String(dataUrl).startsWith('data:')) return reply(400, { ok: false, error: '缺少文件dataUrl。' });
-
-  let inlineData;
-  try { inlineData = dataUrlToInlineData(dataUrl, mimeType); }
-  catch (e) { return reply(400, { ok: false, error: e.message || String(e) }); }
-
-  const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  if (!apiKey) throw new Error('服务器未配置 GEMINI_API_KEY。');
+  const model = process.env.GEMINI_MODEL || process.env.AI_MODEL || 'gemini-2.5-flash';
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
 
+  const parts = [{ text: `${promptFor(kind)}\n\n文件名：${filename}` }];
+  for (const it of partsData) parts.push({ inline_data: { mime_type: it.mimeType, data: it.data } });
+
   const payload = {
-    contents: [{
-      role: 'user',
-      parts: [
-        { text: `${promptFor(kind)}\n\n文件名：${filename}` },
-        { inline_data: inlineData }
-      ]
-    }],
-    generationConfig: {
-      temperature: 0,
-      responseMimeType: 'application/json'
-    }
+    contents: [{ role: 'user', parts }],
+    generationConfig: { temperature: 0, responseMimeType: 'application/json' }
   };
 
   let apiResp;
@@ -189,21 +164,111 @@ export async function handler(event) {
       body: JSON.stringify(payload)
     });
   } catch (e) {
-    return reply(500, { ok: false, error: `调用Gemini接口失败：${e.message || e}` });
+    throw new Error(`调用Gemini接口失败：${e.message || e}`);
   }
 
   const text = await apiResp.text();
-  if (!apiResp.ok) {
-    return reply(500, { ok: false, error: `Gemini接口返回错误 HTTP ${apiResp.status}: ${text.slice(0, 1600)}` });
-  }
+  if (!apiResp.ok) throw new Error(`Gemini接口返回错误 HTTP ${apiResp.status}: ${text.slice(0, 1600)}`);
 
   let raw;
-  try { raw = JSON.parse(text); } catch { return reply(500, { ok: false, error: `Gemini响应不是JSON：${text.slice(0, 1200)}` }); }
-
+  try { raw = JSON.parse(text); } catch { throw new Error(`Gemini响应不是JSON：${text.slice(0, 1200)}`); }
   const outputText = extractGeminiText(raw);
-  let data;
-  try { data = parseJsonFromText(outputText); }
-  catch (e) { return reply(500, { ok: false, error: e.message || String(e), raw: outputText.slice(0, 1600) }); }
+  const data = parseJsonFromText(outputText);
+  return { data, model, provider: 'gemini' };
+}
 
-  return reply(200, { ok: true, data: stripNulls(data), model, provider: 'gemini' });
+function extractOpenRouterText(resp) {
+  const msg = resp?.choices?.[0]?.message;
+  const c = msg?.content;
+  if (typeof c === 'string') return c.trim();
+  if (Array.isArray(c)) {
+    return c.map(x => typeof x?.text === 'string' ? x.text : '').join('\n').trim();
+  }
+  return '';
+}
+
+async function callOpenRouter({ kind, filename, dataUrls }) {
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  if (!apiKey) throw new Error('服务器未配置 OPENROUTER_API_KEY。');
+  const model = process.env.OPENROUTER_MODEL || process.env.AI_MODEL || 'openrouter/free';
+  const endpoint = 'https://openrouter.ai/api/v1/chat/completions';
+
+  const content = [{ type: 'text', text: `${promptFor(kind)}\n\n文件名：${filename}` }];
+  for (const url of dataUrls) content.push({ type: 'image_url', image_url: { url } });
+
+  const payload = {
+    model,
+    messages: [{ role: 'user', content }],
+    temperature: 0,
+    response_format: { type: 'json_object' }
+  };
+
+  let apiResp;
+  try {
+    apiResp = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+        'HTTP-Referer': process.env.SITE_URL || 'https://scyclemoney.netlify.app',
+        'X-Title': process.env.SITE_TITLE || 'XUS Forging BOM Tool'
+      },
+      body: JSON.stringify(payload)
+    });
+  } catch (e) {
+    throw new Error(`调用OpenRouter接口失败：${e.message || e}`);
+  }
+
+  const text = await apiResp.text();
+  if (!apiResp.ok) throw new Error(`OpenRouter接口返回错误 HTTP ${apiResp.status}: ${text.slice(0, 1600)}`);
+
+  let raw;
+  try { raw = JSON.parse(text); } catch { throw new Error(`OpenRouter响应不是JSON：${text.slice(0, 1200)}`); }
+  const outputText = extractOpenRouterText(raw);
+  const data = parseJsonFromText(outputText);
+  return { data, model, provider: 'openrouter' };
+}
+
+export async function handler(event) {
+  if (event.httpMethod !== 'POST') return reply(405, { ok: false, error: 'Method not allowed' });
+
+  let req;
+  try { req = JSON.parse(event.body || '{}'); } catch { return reply(400, { ok: false, error: '请求JSON解析失败。' }); }
+
+  const { kind, filename = 'upload', mimeType = '', dataUrl = '', images = [] } = req || {};
+  if (!['forging', 'machining'].includes(kind)) return reply(400, { ok: false, error: 'kind 必须是 forging 或 machining。' });
+
+  const dataUrls = [];
+  if (Array.isArray(images)) {
+    for (const u of images) if (typeof u === 'string' && u.startsWith('data:image/')) dataUrls.push(u);
+  }
+  if (!dataUrls.length && typeof dataUrl === 'string' && dataUrl.startsWith('data:')) dataUrls.push(dataUrl);
+  if (!dataUrls.length) return reply(400, { ok: false, error: '缺少文件dataUrl或PDF页面图片。' });
+
+  const providerPref = String(process.env.AI_PROVIDER || '').toLowerCase().trim();
+  const hasOpenRouter = !!process.env.OPENROUTER_API_KEY;
+  const hasGemini = !!process.env.GEMINI_API_KEY;
+  const provider = providerPref || (hasOpenRouter ? 'openrouter' : (hasGemini ? 'gemini' : ''));
+
+  if (!provider) {
+    return reply(500, { ok: false, error: '服务器未配置AI Key。请在Netlify环境变量中配置 OPENROUTER_API_KEY（推荐，免费路由）或 GEMINI_API_KEY 后重新部署。' });
+  }
+
+  try {
+    if (provider === 'openrouter') {
+      const result = await callOpenRouter({ kind, filename, dataUrls });
+      return reply(200, { ok: true, data: stripNulls(result.data), model: result.model, provider: result.provider });
+    }
+
+    if (provider === 'gemini') {
+      const partsData = [];
+      for (const u of dataUrls) partsData.push(dataUrlToInlineData(u, mimeType || 'image/png'));
+      const result = await callGemini({ kind, filename, partsData });
+      return reply(200, { ok: true, data: stripNulls(result.data), model: result.model, provider: result.provider });
+    }
+
+    return reply(500, { ok: false, error: `不支持的 AI_PROVIDER：${provider}。可用值：openrouter / gemini。` });
+  } catch (e) {
+    return reply(500, { ok: false, error: e.message || String(e) });
+  }
 }

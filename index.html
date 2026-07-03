@@ -1029,22 +1029,53 @@ function fileToDataUrl(file){
    r.readAsDataURL(file);
  });
 }
+async function pdfFileToImageDataUrls(file,statusFn,maxPages=2){
+ if(!window.pdfjsLib) throw new Error('PDF页面转图片组件未加载成功');
+ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+ const buf=await file.arrayBuffer();
+ const pdf=await pdfjsLib.getDocument({data:buf}).promise;
+ const out=[];
+ const pages=Math.min(pdf.numPages,maxPages);
+ for(let p=1;p<=pages;p++){
+   statusFn&&statusFn(`正在将PDF第 ${p}/${pdf.numPages} 页转成AI可识别图片……`);
+   const page=await pdf.getPage(p);
+   const view1=page.getViewport({scale:1});
+   const targetW=1800;
+   const scale=Math.max(1.4, Math.min(2.8, targetW / view1.width));
+   const viewport=page.getViewport({scale});
+   const canvas=document.createElement('canvas');
+   canvas.width=Math.ceil(viewport.width);
+   canvas.height=Math.ceil(viewport.height);
+   const ctx=canvas.getContext('2d',{willReadFrequently:false});
+   await page.render({canvasContext:ctx,viewport}).promise;
+   out.push(canvas.toDataURL('image/jpeg',0.88));
+ }
+ return out;
+}
 async function recognizeFileWithAi(kind,file,statusFn){
  if(!file) throw new Error('未选择文件');
- const maxMB=18;
+ const maxMB=25;
  if(file.size>maxMB*1024*1024) throw new Error(`文件过大：${(file.size/1024/1024).toFixed(1)}MB。建议裁剪/压缩到 ${maxMB}MB 以下后再上传。`);
- statusFn && statusFn(`正在调用AI识别 ${file.name||''}，请稍等……`);
- const dataUrl=await fileToDataUrl(file);
+ const name=(file.name||'upload');
+ const type=(file.type||'').toLowerCase();
+ statusFn && statusFn(`正在调用AI识别 ${name}，请稍等……`);
+ let dataUrl='';
+ let images=[];
+ if(type.includes('pdf') || /\.pdf$/i.test(name)){
+   images=await pdfFileToImageDataUrls(file,statusFn,2);
+ }else{
+   dataUrl=await fileToDataUrl(file);
+ }
  const resp=await fetch('/.netlify/functions/ai-recognize',{
    method:'POST',
    headers:{'Content-Type':'application/json'},
-   body:JSON.stringify({kind, filename:file.name||'upload', mimeType:file.type||'', dataUrl})
+   body:JSON.stringify({kind, filename:name, mimeType:file.type||'', dataUrl, images})
  });
  const bodyText=await resp.text();
  let payload=null;
- try{ payload=bodyText?JSON.parse(bodyText):null; }catch(e){ throw new Error(`Gemini接口返回非JSON：${bodyText.slice(0,500)}`); }
+ try{ payload=bodyText?JSON.parse(bodyText):null; }catch(e){ throw new Error(`AI接口返回非JSON：${bodyText.slice(0,500)}`); }
  if(!resp.ok || !payload || payload.ok===false){
-   throw new Error((payload&&payload.error)||`Gemini识别接口失败：HTTP ${resp.status}`);
+   throw new Error((payload&&payload.error)||`AI识别接口失败：HTTP ${resp.status}`);
  }
  return payload.data;
 }
@@ -1152,7 +1183,7 @@ async function parseUploadedPdf(){
      if(autoDeviceWarnings.length){alert([...new Set(autoDeviceWarnings)].join('\n'));}
      return;
    }catch(aiErr){
-     console.warn('Gemini forging recognition failed, fallback to legacy OCR:', aiErr);
+     console.warn('AI forging recognition failed, fallback to legacy OCR:', aiErr);
      pdfStatus('AI识别失败：'+(aiErr.message||aiErr)+'；正在回退传统PDF/OCR识别……',true);
    }
    const text=await readTextFromUploadedFile(file, pdfStatus);
