@@ -1,4 +1,4 @@
-# XUS Forging BOM Tool V52 - OpenRouter 免费AI识别版
+# XUS Forging BOM Tool V53 - OpenRouter 免费AI识别版
 
 本版本基于 V48/V51 页面结构，保留 BOM、工艺路线、Capacity Study、工艺数据库维护逻辑。
 
@@ -53,3 +53,12 @@ netlify/functions/ai-recognize.mjs
 netlify/functions/get-process-db.mjs
 netlify/functions/save-process-db.mjs
 ```
+
+
+## V53 棒料规则更新
+
+- 外购棒、挤压棒：不参与铸棒数据库直径匹配，不受长棒最小/最大长度范围限制，不计算扒皮和料头料尾，直接按识别/输入的短棒直径与短棒长度带入。
+- 内铸棒：
+  - 若 D + 扒皮余量 小于/等于铸棒数据库最小长棒直径，自动按最小长棒直径计算并带入长棒信息，同时橙红提示“扒皮量过大，建议更新铸棒规则/增加更小长棒档位”。该提示不阻止复制/导出。
+  - 若 D + 扒皮余量 大于铸棒数据库最大长棒直径，则红色报错并阻止复制/导出。
+  - 正常范围内按第一个满足 D + 扒皮余量 的长棒档位匹配。
