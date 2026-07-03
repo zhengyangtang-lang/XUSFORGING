@@ -1,34 +1,55 @@
-# 锻造事业部BOM和节拍核算 V48｜Netlify Blobs 云端工艺数据库版
+# 锻造事业部BOM和节拍核算 V51｜Gemini免费AI识别 + V48云端工艺库版
+
+本版本基于 V48 页面结构恢复，保留原来的 BOM、工艺路线、Capacity Study、工艺数据库维护逻辑；将 PDF/图片 OCR 主识别方式替换为 Gemini API AI 视觉识别。
+
+## 版本特性
+
+- 锻造毛坯成本分析：PDF / PNG / JPG 上传后走 Gemini AI 识别。
+- 机加工 Production capacity study：PDF / PNG / JPG 上传后走 Gemini AI 识别。
+- 机加工节拍仍按 `Scycle time / Cavity` 计算。
+- 机加工识别后仍自动追加“自动打码”工序。
+- 保留 V48 云端工艺数据库功能：Netlify Blobs + get/save process db。
+- AI 识别失败时保留传统 OCR 回退，便于临时救场。
+
+## Netlify 环境变量
+
+必须配置：
+
+```text
+GEMINI_API_KEY = 你的 Gemini API Key
+```
+
+如果继续使用 V48 云端工艺数据库保存功能，还需要：
+
+```text
+ADMIN_PASSWORD = 你的管理员密码
+```
+
+可选：
+
+```text
+GEMINI_MODEL = gemini-2.5-flash
+```
 
 ## 部署方式
 
-1. 将本文件夹上传到 GitHub 仓库。
-2. Netlify 新建站点，选择该 GitHub 仓库。
-3. Build command: `npm install`
-4. Publish directory: `.`
-5. 在 Netlify Site configuration → Environment variables 中新增：
-   - `ADMIN_PASSWORD` = 你的管理员保存密码
-6. 部署完成后打开网址。
+1. 解压本 zip。
+2. 把解压后的内容上传覆盖 GitHub 仓库根目录。
+3. 确认 GitHub 根目录存在：
 
-## 使用方式
+```text
+index.html
+package.json
+netlify.toml
+netlify/functions/ai-recognize.mjs
+netlify/functions/get-process-db.mjs
+netlify/functions/save-process-db.mjs
+```
 
-- 普通用户：打开网页自动读取云端工艺数据库，只做分析和导出。
-- 管理员：进入工艺数据维护窗口，输入管理员密码，点击“保存到云端主库”。
-- 项目分析结果不会写入云端，仅工艺数据库和铸棒规则写入 Netlify Blobs。
+4. Netlify 自动部署或手动 Trigger deploy。
+5. 在 Netlify 的 Project configuration → Environment variables 添加 `GEMINI_API_KEY`。
+6. 修改环境变量后必须重新部署一次。
 
 ## 注意
 
-首次部署后云端库为空，页面会使用内置默认库。管理员需要进入工艺数据维护窗口，点击“保存到云端主库”初始化主数据库。
-
-
-## V48 修复
-
-- 修复保存云端主库失败时前端重复读取 Response body 导致的 `body stream already read` 报错。
-- 保存失败时会显示真实原因，例如管理员密码错误、未配置 ADMIN_PASSWORD、Netlify Function 错误等。
-
-
-## V48 更新
-- 过滤机加工图片网格识别中把表头误识别为 OP10/OP20 的问题。
-- 修正 Scycle/time(s) 字母被误转成数字 1 的问题。
-- 增加 Mazak530 常见 OCR 误读归一化，如 Mazakb30 / Mazako30 / MazakS30。
-- 追加工序前二次过滤无效机加工行。
+Gemini 免费层有额度限制，且免费层的数据使用政策需要按 Google 官方说明确认。内部报价、客户图纸等敏感文件建议先做脱敏，或使用公司批准的企业级 AI 服务。
