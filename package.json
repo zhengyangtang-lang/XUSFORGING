@@ -1,0 +1,13 @@
+{
+  "name": "xusheng-bom-netlify-v52-openrouter-free-ai",
+  "version": "1.0.6",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@netlify/blobs": "latest"
+  },
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo \"static html only\""
+  }
+}
